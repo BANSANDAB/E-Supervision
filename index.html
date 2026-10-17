@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>ระบบนิเทศภายใน โรงเรียนบ้านสันดาบ | TH SarabunPSK</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="ตราโรงเรียน.png">
+</head>
+<body>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="header-brand">
+        <div class="school-emblem" title="โรงเรียนบ้านสันดาบ">
+          <img src="ตราโรงเรียน.png" alt="ตราโรงเรียนบ้านสันดาบ" class="header-logo-img">
+        </div>
+        <div class="brand-text">
+          <h1>ระบบนิเทศภายในสถานศึกษา</h1>
+          <p>โรงเรียนบ้านสันดาบ สำนักงานเขตพื้นที่การศึกษาประถมศึกษาสมุทรสาคร</p>
+        </div>
+      </div>
+
+      <!-- ปุ่มเปิด/ปิดเมนูด้านซ้ายบนมือถือ -->
+      <button type="button" class="mobile-menu-toggle no-print" onclick="toggleMobileSidebar()">
+        ☰ เมนูรอบการประเมิน
+      </button>
+    </div>
+  </header>
+
+  <!-- App Layout: Left Sidebar + Right Content Area -->
+  <div class="app-layout-wrapper">
+
+    <!-- ======================================================================
+         LEFT SIDEBAR (เมนูปุ่มหลักแต่ละครั้ง + ปุ่มย่อยแบบประเมิน ย่อขยายได้)
+         ====================================================================== -->
+    <aside class="left-sidebar no-print" id="left-sidebar">
+      <div class="sidebar-heading">
+        <span>🌸 เลือกรอบและแบบประเมิน</span>
+        <button type="button" class="btn-toggle-rounds no-print" onclick="toggleAllRounds()" id="btn-toggle-rounds" title="ย่อหรือขยายรอบการประเมินทั้งหมด">
+          ย่อ/ขยาย
+        </button>
+      </div>
+
+      <div class="rounds-vertical-list">
+        <!-- ครั้งที่ 1 ตนเอง (ปุ่มหลักย่อขยายได้) -->
+        <div class="round-nav-block active" id="round-block-1">
+          <button type="button" class="round-main-btn" onclick="toggleRoundBlock(1)">
+            <div class="round-main-left">
+              <span class="round-main-icon">👤</span>
+              <div class="round-main-text">
+                <span class="round-main-num">ครั้งที่ 1</span>
+                <span class="round-main-title">ตนเอง</span>
+              </div>
+            </div>
+            <span class="round-caret" id="round-caret-1">▶</span>
+          </button>
+          <!-- ปุ่มย่อยในครั้งที่ 1 -->
+          <div class="round-sub-buttons-list" id="sub-list-1">
+            <button type="button" class="sidebar-sub-btn active" id="sub-btn-1-form1" onclick="selectRoundAndForm(1, 'form1')">
+              <span>📑 แบบสังเกตชั้นเรียน</span>
+              <span class="sub-badge">24 ข้อ</span>
+            </button>
+            <button type="button" class="sidebar-sub-btn" id="sub-btn-1-form2" onclick="selectRoundAndForm(1, 'form2')">
+              <span>🏫 แบบประเมินตนเอง</span>
+              <span class="sub-badge">14 ข้อ</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ครั้งที่ 2 เพื่อนครู (ปุ่มหลักย่อขยายได้) -->
+        <div class="round-nav-block" id="round-block-2">
+          <button type="button" class="round-main-btn" onclick="toggleRoundBlock(2)">
+            <div class="round-main-left">
+              <span class="round-main-icon">👥</span>
+              <div class="round-main-text">
+                <span class="round-main-num">ครั้งที่ 2</span>
+                <span class="round-main-title">เพื่อนครู</span>
+              </div>
+            </div>
+            <span class="round-caret" id="round-caret-2">▶</span>
+          </button>
+          <!-- ปุ่มย่อยในครั้งที่ 2 -->
+          <div class="round-sub-buttons-list" id="sub-list-2">
+            <button type="button" class="sidebar-sub-btn" id="sub-btn-2-form1" onclick="selectRoundAndForm(2, 'form1')">
+              <span>📑 แบบสังเกตชั้นเรียน</span>
+              <span class="sub-badge">24 ข้อ</span>
+            </button>
+            <button type="button" class="sidebar-sub-btn" id="sub-btn-2-form2" onclick="selectRoundAndForm(2, 'form2')">
+              <span>🏫 แบบประเมินตนเอง</span>
+              <span class="sub-badge">14 ข้อ</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ครั้งที่ 3 หัวหน้างาน (ปุ่มหลักย่อขยายได้) -->
+        <div class="round-nav-block" id="round-block-3">
+          <button type="button" class="round-main-btn" onclick="toggleRoundBlock(3)">
+            <div class="round-main-left">
+              <span class="round-main-icon">📋</span>
+              <div class="round-main-text">
+                <span class="round-main-num">ครั้งที่ 3</span>
+                <span class="round-main-title">หัวหน้างาน</span>
+              </div>
+            </div>
+            <span class="round-caret" id="round-caret-3">▶</span>
+          </button>
+          <!-- ปุ่มย่อยในครั้งที่ 3 -->
+          <div class="round-sub-buttons-list" id="sub-list-3">
+            <button type="button" class="sidebar-sub-btn" id="sub-btn-3-form1" onclick="selectRoundAndForm(3, 'form1')">
+              <span>📑 แบบสังเกตชั้นเรียน</span>
+              <span class="sub-badge">24 ข้อ</span>
+            </button>
+            <button type="button" class="sidebar-sub-btn" id="sub-btn-3-form2" onclick="selectRoundAndForm(3, 'form2')">
+              <span>🏫 แบบประเมินตนเอง</span>
+              <span class="sub-badge">14 ข้อ</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ครั้งที่ 4 ผู้อำนวยการ (ปุ่มหลักย่อขยายได้) -->
+        <div class="round-nav-block" id="round-block-4">
+          <button type="button" class="round-main-btn" onclick="toggleRoundBlock(4)">
+            <div class="round-main-left">
+              <span class="round-main-icon">🏫</span>
+              <div class="round-main-text">
+                <span class="round-main-num">ครั้งที่ 4</span>
+                <span class="round-main-title">ผู้อำนวยการ</span>
+              </div>
+            </div>
+            <span class="round-caret" id="round-caret-4">▶</span>
+          </button>
+          <!-- ปุ่มย่อยในครั้งที่ 4 -->
+          <div class="round-sub-buttons-list" id="sub-list-4">
+            <button type="button" class="sidebar-sub-btn" id="sub-btn-4-form1" onclick="selectRoundAndForm(4, 'form1')">
+              <span>📑 แบบสังเกตชั้นเรียน</span>
+              <span class="sub-badge">24 ข้อ</span>
+            </button>
+            <button type="button" class="sidebar-sub-btn" id="sub-btn-4-form2" onclick="selectRoundAndForm(4, 'form2')">
+              <span>🏫 แบบประเมินตนเอง</span>
+              <span class="sub-badge">14 ข้อ</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- เมนูเพิ่มเติมด้านล่าง Sidebar -->
+      <div class="sidebar-extra-nav">
+        <button type="button" class="sidebar-link-btn" id="side-link-history" onclick="switchForm('history')">
+          <span>📋 ประวัติการนิเทศชั้นเรียน</span>
+          <span class="sub-badge" id="history-count-badge">0</span>
+        </button>
+        <button type="button" class="sidebar-link-btn" id="side-link-directory" onclick="switchForm('directory')">
+          <span>👥 ทะเบียนครูและนักเรียน</span>
+          <span style="font-size:0.85rem; opacity:0.8;">ฐานข้อมูล</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ======================================================================
+         RIGHT CONTENT AREA (พื้นที่แสดงเอกสาร และแถบปุ่มการทำงาน)
+         ====================================================================== -->
+    <main class="right-content-area">
+
+      <!-- Sticky Top Action Bar (ปุ่มพิมพ์ พิมพ์ ส่งออก และบันทึกข้อมูล อยู่บรรทัดเดียวกัน จัดให้สวยงาม) -->
+      <div class="top-action-bar no-print">
+        <div class="action-bar-left" style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+          <span class="current-status-tag" id="current-breadcrumb">
+            🎯 ครั้งที่ 1: ตนเอง &gt; แบบสังเกตชั้นเรียน
+          </span>
+        </div>
+
+        <div class="action-bar-buttons">
+          <button type="button" class="btn btn-primary" onclick="syncAllDataNow(true)" title="ดึงข้อมูลล่าสุดจากฐานข้อมูล Google Sheets และประวัติการนิเทศ">
+            🔄 ดึงข้อมูลจากฐานข้อมูล
+          </button>
+          <button type="button" class="btn btn-print" onclick="syncAllPrintValues(); window.print();" title="พิมพ์เอกสารราชการลงกระดาษ A4">
+            🖨️ พิมพ์เอกสารราชการ (A4)
+          </button>
+          <button type="button" class="btn btn-pdf" onclick="downloadCurrentPDF()" title="ดาวน์โหลดเอกสารเป็นไฟล์ .PDF">
+            📄 ดาวน์โหลด .PDF
+          </button>
+          <button type="button" class="btn btn-outline-secondary" id="btn-cancel-edit" style="display:none;" onclick="cancelEditRecord()" title="ยกเลิกการแก้ไขและกลับสู่แบบฟอร์มใหม่">
+            ✕ ยกเลิกแก้ไข
+          </button>
+          <button type="button" class="btn btn-success" id="btn-save-main" onclick="saveCurrentRecord()" title="บันทึกข้อมูลผลการประเมินลงฐานข้อมูล">
+            💾 บันทึกข้อมูล
+          </button>
+        </div>
+      </div>
+
+      <!-- แบนเนอร์แสดงสถานะโหมดแก้ไขข้อมูล (ซ่อนเมื่อพิมพ์ และแสดงเฉพาะเมื่อกดปุ่มแก้ไขจากประวัติ) -->
+      <div id="edit-mode-banner" class="edit-mode-banner no-print" style="display:none;">
+        <div class="edit-mode-banner-content">
+          <span>✏️</span>
+          <span id="edit-mode-text">กำลังอยู่ในโหมดแก้ไขข้อมูล</span>
+        </div>
+        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="cancelEditRecord()" style="padding:0.25rem 0.65rem; font-size:0.95rem;">
+          ✕ ยกเลิกการแก้ไข
+        </button>
+      </div>
+
+      <!-- ====================================================================
+           TAB 1: แบบนิเทศสังเกตชั้นเรียน (Classroom Observation)
+           ==================================================================== -->
+      <section id="view-form1" class="tab-view active">
+        <article class="paper-wrapper" id="printable-form1">
+          <!-- Official Document Header -->
+          <header class="official-header">
+            <!-- ตราโรงเรียนบ้านสันดาบ อยู่กึ่งกลาง บนคำว่า แบบนิเทศสังเกตชั้นเรียน -->
+            <div class="school-logo-center">
+              <img src="ตราโรงเรียน.png" alt="ตราโรงเรียนบ้านสันดาบ" class="school-logo-img">
+            </div>
+            <h2>แบบนิเทศสังเกตชั้นเรียน</h2>
+            <div class="round-tag-official" id="f1-print-round-tag">การประเมินครั้งที่ 1 (ตนเอง)</div>
+            <h3>โรงเรียนบ้านสันดาบ สำนักงานเขตพื้นที่การศึกษาประถมศึกษาสมุทรสาคร</h3>
+            <div class="sub-info">
+              <span>ภาคเรียนที่ <input type="text" id="f1-term" class="form-control" style="width: 60px; display:inline-block; text-align:center;" value="1"><span class="print-value-display print-sub-val" id="f1-term-print-val">1</span></span>
+              <span>ปีการศึกษา <input type="text" id="f1-year" class="form-control" style="width: 80px; display:inline-block; text-align:center;" value="2569"><span class="print-value-display print-sub-val" id="f1-year-print-val">2569</span></span>
+            </div>
+          </header>
+
+          <div class="instruction-box">
+            <strong>คำชี้แจง:</strong> แบบสังเกตชั้นเรียนนี้ เป็นแบบสังเกตการจัดการเรียนการสอนของครูในแต่ละรายวิชาที่สอนโดยครูผู้สอนหรือผู้สังเกตชั้นเรียน กรุณาบันทึกข้อมูลจากการสังเกตและทำเครื่องหมายถูก (✓) ในแบบประเมินทุกข้อ
+          </div>
+
+          <!-- Part 1: General Info -->
+          <div class="part-title">ตอนที่ 1 ข้อมูลทั่วไป</div>
+          <div class="info-rows-container">
+            <!-- บรรทัดที่ 1: ชื่อผู้สอน และ วัน/เดือน/ปี ที่สังเกตการสอน อยู่บรรทัดเดียวกัน -->
+            <div class="info-row">
+              <div class="info-col" style="flex: 1.6; min-width: 280px;">
+                <label for="f1-teacher-select" class="info-label">
+                  1.1 ชื่อผู้สอน: <span class="required">*</span>
+                </label>
+                <div class="teacher-select-wrapper" style="flex: 1;">
+                  <select id="f1-teacher-select" class="form-control teacher-dropbox" onchange="onTeacherSelectedForm1(this.value)">
+                    <option value="">-- กรุณาเลือกครูผู้สอนจากฐานข้อมูลกลาง --</option>
+                  </select>
+                  <input type="hidden" id="f1-teacher-name">
+                  <span class="print-value-display" id="f1-teacher-print-val"></span>
+                </div>
+              </div>
+
+              <div class="info-col" style="flex: 1.1; min-width: 220px;">
+                <label for="f1-date" class="info-label">วัน/เดือน/ปี ที่สังเกตการสอน:</label>
+                <input type="date" id="f1-date" class="form-control" style="flex: 1;">
+                <span class="print-value-display" id="f1-date-print-val"></span>
+              </div>
+            </div>
+
+            <!-- ส่วนข้อมูลวิชาและชั้น: ในหน้าจอแบ่งเป็น 2 บรรทัด (วิชา+รหัสวิชา และ ชั้น+คาบเรียน) เพื่อไม่ให้ล้น body แต่ในระบบพิมพ์ (print) รวมเป็นบรรทัดเดียวกัน -->
+            <div class="info-subject-group">
+              <div class="info-row info-subrow-subject">
+                <div class="info-col info-col-subject" style="flex: 1.6; min-width: 200px;">
+                  <label for="f1-subject" class="info-label">1.2 วิชาที่สอน:</label>
+                  <input type="text" id="f1-subject" class="form-control" placeholder="เช่น ภาษาไทย" style="flex: 1;">
+                  <span class="print-value-display" id="f1-subject-print-val"></span>
+                </div>
+
+                <div class="info-col info-col-code" style="flex: 1.1; min-width: 140px;">
+                  <label for="f1-subject-code" class="info-label">รหัสวิชา:</label>
+                  <input type="text" id="f1-subject-code" class="form-control" placeholder="ท 14101" style="flex: 1; text-align: center;">
+                  <span class="print-value-display" id="f1-code-print-val"></span>
+                </div>
+              </div>
+
+              <div class="info-row info-subrow-grade">
+                <div class="info-col info-col-grade" style="flex: 1.6; min-width: 200px;">
+                  <label for="f1-grade" class="info-label">ชั้นที่สอน:</label>
+                  <div class="grade-select-wrapper" style="flex: 1;">
+                    <select id="f1-grade" class="form-control grade-dropbox" onchange="syncGradePrintVal(this.value)">
+                      <option value="">-- เลือกระดับชั้น --</option>
+                      <option value="อ.1">อนุบาล 1 (อ.1)</option>
+                      <option value="อ.2">อนุบาล 2 (อ.2)</option>
+                      <option value="อ.3">อนุบาล 3 (อ.3)</option>
+                      <option value="ป.1">ประถมศึกษาปีที่ 1 (ป.1)</option>
+                      <option value="ป.2">ประถมศึกษาปีที่ 2 (ป.2)</option>
+                      <option value="ป.3">ประถมศึกษาปีที่ 3 (ป.3)</option>
+                      <option value="ป.4">ประถมศึกษาปีที่ 4 (ป.4)</option>
+                      <option value="ป.5">ประถมศึกษาปีที่ 5 (ป.5)</option>
+                      <option value="ป.6">ประถมศึกษาปีที่ 6 (ป.6)</option>
+                    </select>
+                    <span class="print-value-display" id="f1-grade-print-val"></span>
+                  </div>
+                </div>
+
+                <div class="info-col info-col-period" style="flex: 1.1; min-width: 140px;">
+                  <label for="f1-period" class="info-label">คาบเรียนที่:</label>
+                  <input type="text" id="f1-period" class="form-control" placeholder="เช่น 2" style="flex: 1; text-align: center;">
+                  <span class="print-value-display" id="f1-period-print-val"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- บรรทัดที่ 3: ชื่อหน่วยการเรียนรู้ -->
+            <div class="info-row">
+              <div class="info-col full-width">
+                <label for="f1-unit" class="info-label">ชื่อหน่วยการเรียนรู้:</label>
+                <input type="text" id="f1-unit" class="form-control" placeholder="ระบุชื่อหน่วยการเรียนรู้และเรื่องที่จัดการเรียนรู้" style="flex: 1;">
+                <span class="print-value-display" id="f1-unit-print-val"></span>
+              </div>
+            </div>
+
+            <!-- บรรทัดที่ 4: ชื่อผู้สังเกต -->
+            <div class="info-row">
+              <div class="info-col full-width">
+                <label class="info-label">1.3 ชื่อผู้สังเกต:</label>
+                <!-- หน้าจอ: แสดง radio button สำหรับเลือก -->
+                <div class="radio-group-inline no-print" style="flex: 1;">
+                  <label class="custom-radio">
+                    <input type="radio" name="f1_observer_type" id="f1_radio_self" value="self" checked onchange="toggleObserverTypeForm1('self')">
+                    <span>ตนเอง</span>
+                  </label>
+                  <label class="custom-radio">
+                    <input type="radio" name="f1_observer_type" id="f1_radio_other" value="other" onchange="toggleObserverTypeForm1('other')">
+                    <span>ผู้อื่นประเมิน</span>
+                  </label>
+                  <div style="display: inline-flex; align-items: center; gap: 0.4rem; flex: 1; margin-left: 0.5rem;">
+                    <span style="font-size: 1.15rem; font-weight: 600;">ชื่อผู้ประเมิน:</span>
+                    <input type="text" id="f1-observer-name" class="form-control" placeholder="ระบุชื่อ-นามสกุล ผู้ประเมิน" style="flex: 1; min-width: 180px;" oninput="syncAllPrintValues()">
+                  </div>
+                </div>
+
+                <!-- ระบบพิมพ์: แสดงข้อมูลครบถ้วนทั้ง ตนเอง และ ผู้อื่นประเมิน พร้อมเครื่องหมายตัวเลือกและชื่อผู้ประเมิน -->
+                <div class="print-observer-display" id="f1-print-observer-box">
+                  <span class="print-obs-opt">
+                    <span class="print-radio-circle" id="f1-print-radio-self"></span>
+                    <span>ตนเอง</span>
+                  </span>
+                  <span class="print-obs-opt">
+                    <span class="print-radio-circle" id="f1-print-radio-other"></span>
+                    <span>ผู้อื่นประเมิน</span>
+                  </span>
+                  <span class="print-obs-name-box">
+                    <span class="print-obs-name-label">ชื่อผู้ประเมิน:</span>
+                    <span class="print-obs-name-val" id="f1-print-observer-name">....................................................</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Part 2: Evaluation Table (ปรับให้แคบลง และปรับตัวอักษรแต่ละข้อให้ใหญ่ขึ้น) -->
+          <div class="part-title">ตอนที่ 2 การสังเกตการเรียนการสอนตามสภาพจริง</div>
+          
+          <div class="eval-table-container">
+            <table class="eval-table" id="table-form1">
+              <thead>
+                <tr>
+                  <th rowspan="2" class="th-num">ที่</th>
+                  <th rowspan="2" class="th-item">รายการประเมิน</th>
+                  <th colspan="4">ระดับการประเมิน</th>
+                </tr>
+                <tr>
+                  <th class="th-score">4<br><small style="font-weight: normal; font-size: 0.85rem;">(ดีมาก)</small></th>
+                  <th class="th-score">3<br><small style="font-weight: normal; font-size: 0.85rem;">(ดี)</small></th>
+                  <th class="th-score">2<br><small style="font-weight: normal; font-size: 0.85rem;">(พอใช้)</small></th>
+                  <th class="th-score">1<br><small style="font-weight: normal; font-size: 0.85rem;">(ปรับปรุง)</small></th>
+                </tr>
+              </thead>
+              <tbody id="tbody-form1">
+                <!-- Rendered dynamically by JavaScript -->
+              </tbody>
+              <tfoot>
+                <!-- การรวมจำนวนข้อแต่ละระดับ และคะแนนรวมทั้งหมด อยู่ในส่วนตารางสุดท้ายเท่านั้น -->
+                <tr class="summary-row">
+                  <td colspan="2" style="text-align: right; padding-right: 1.25rem;">
+                    <strong>รวมจำนวนข้อในแต่ละระดับ:</strong>
+                  </td>
+                  <td class="score-cell" id="f1-count-4">0</td>
+                  <td class="score-cell" id="f1-count-3">0</td>
+                  <td class="score-cell" id="f1-count-2">0</td>
+                  <td class="score-cell" id="f1-count-1">0</td>
+                </tr>
+                <!-- Grand Total & Quality Interpretation (แยกบรรทัด คะแนนรวม และ ระดับคุณภาพ) -->
+                <tr class="summary-row-grand">
+                  <td colspan="2" style="text-align: right; padding-right: 1.25rem; vertical-align: middle;">
+                    <div style="font-weight: 800; font-size: 1.25rem; line-height: 1.4;">คะแนนรวม:</div>
+                    <div style="font-weight: 800; font-size: 1.25rem; line-height: 1.4;">ระดับคุณภาพ:</div>
+                  </td>
+                  <td colspan="4" style="text-align: center; font-size: 1.25rem; vertical-align: middle;" id="f1-grand-summary">
+                    <div style="font-weight: 800; line-height: 1.4;">0 คะแนน (รอประเมิน)</div>
+                    <div style="font-weight: 800; line-height: 1.4;">ระดับ รอประเมิน</div>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <!-- Criteria Interpretation Reference -->
+          <div class="criteria-guide-box">
+            <h4>เกณฑ์การแปลความหมายระดับคุณภาพ:</h4>
+            <div class="criteria-grid">
+              <div class="criteria-pill">
+                <span class="status-dot" style="background:#10b981;"></span>
+                <span>คะแนน <strong>81 - 96</strong> หมายถึง <strong>ดีมาก</strong></span>
+              </div>
+              <div class="criteria-pill">
+                <span class="status-dot" style="background:#0284c7;"></span>
+                <span>คะแนน <strong>63 - 80</strong> หมายถึง <strong>ดี</strong></span>
+              </div>
+              <div class="criteria-pill">
+                <span class="status-dot" style="background:#d97706;"></span>
+                <span>คะแนน <strong>44 - 62</strong> หมายถึง <strong>พอใช้</strong></span>
+              </div>
+              <div class="criteria-pill">
+                <span class="status-dot" style="background:#e11d48;"></span>
+                <span>คะแนน <strong>24 - 43</strong> หมายถึง <strong>ปรับปรุง</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Part 3: Recommendations (ตอนที่ 3 ข้อเสนอแนะ อยู่ใต้ตารางในหน้าเดียวกัน) -->
+          <div class="part-3-page-wrapper">
+            <div class="part-title">ตอนที่ 3 ข้อเสนอแนะ</div>
+            <div class="recommendations-box">
+              <textarea id="f1-recommendation" class="form-control frameless-textarea" rows="3" placeholder="ระบุจุดเด่น ข้อสังเกต หรือข้อเสนอแนะในการพัฒนาการจัดการเรียนรู้..."></textarea>
+            </div>
+
+            <!-- Signatures Grid พร้อมระบบแนบภาพลายเซ็นใส่เอกสาร -->
+            <div class="signature-grid">
+              <div></div> <!-- Spacer -->
+              <div class="signature-block">
+                <!-- แถวลงชื่อพร้อมภาพลายเซ็นแนบในเอกสาร -->
+                <div class="sig-line-row">
+                  <span class="sig-prefix">ลงชื่อ</span>
+                  <span class="signature-target-slot" id="f1-sig-target-slot" onclick="triggerSignatureInput('f1')" title="คลิกเพื่อแนบหรือเปลี่ยนรูปภาพลายเซ็น">
+                    <span class="sig-preview-box" id="f1-sig-preview" style="display:none;">
+                      <img id="f1-sig-img" class="signature-display-img" src="" alt="ภาพลายเซ็นผู้สังเกต">
+                      <button type="button" class="btn-remove-sig no-print" onclick="event.stopPropagation(); removeSignature('f1')" title="ลบลายเซ็นออก">✕ ลบ</button>
+                    </span>
+                    <span class="sig-dots-line" id="f1-sig-dots">................................................................</span>
+                  </span>
+                  <span class="sig-suffix">ผู้สังเกต</span>
+                </div>
+
+                <!-- ปุ่มแนบภาพลายเซ็น (ซ่อนเมื่อพิมพ์) -->
+                <div class="sig-upload-bar no-print" id="f1-sig-upload-btn-box">
+                  <label class="btn-upload-signature" title="คลิกเพื่อเลือกไฟล์รูปภาพลายเซ็น (PNG/JPG)">
+                    ✍️ แนบภาพลายเซ็น
+                    <input type="file" id="f1-sig-file-input" accept="image/*" style="display:none;" onchange="handleSignatureUpload(event, 'f1')">
+                  </label>
+                </div>
+
+                <p class="sig-name-row">( <input type="text" id="f1-sig-name" class="form-control" style="width: 240px; display:inline-block; text-align:center;" placeholder="ชื่อ-นามสกุล ผู้สังเกต"><span class="print-value-display print-sig-name-val" id="f1-sig-name-print-val"></span> )</p>
+                <p class="sig-pos-row">ตำแหน่ง <input type="text" id="f1-sig-position" class="form-control" style="width: 240px; display:inline-block; text-align:center;" value="ครู โรงเรียนบ้านสันดาบ"><span class="print-value-display print-sig-pos-val" id="f1-sig-pos-print-val">ครู โรงเรียนบ้านสันดาบ</span></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ช่องแถบสีชมพู/ม่วง สรุปคะแนน (ย้ายมาอยู่ใต้ ข้อความสุดท้าย ตำแหน่ง ตามคำสั่ง) -->
+          <div class="score-dashboard no-print" style="margin-top: 1.5rem;">
+            <div class="score-stat-group">
+              <div class="stat-item">
+                <span class="stat-label">คะแนนรวมที่ได้</span>
+                <div>
+                  <span class="stat-val" id="f1-dash-score">0</span>
+                  <span class="stat-max">/ 96 คะแนน</span>
+                </div>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">คิดเป็นร้อยละ</span>
+                <div>
+                  <span class="stat-val" id="f1-dash-percent">0.00</span>
+                  <span class="stat-max">%</span>
+                </div>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">ประเมินแล้ว</span>
+                <div>
+                  <span class="stat-val" id="f1-dash-progress">0</span>
+                  <span class="stat-max">/ 24 ข้อ</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <span class="stat-label" style="display:block; margin-bottom: 0.35rem; opacity:0.95;">ระดับคุณภาพ</span>
+              <div class="stat-badge-quality" id="f1-dash-quality">ยังไม่ได้ประเมิน</div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ====================================================================
+           TAB 2: แบบประเมินตนเอง นิเทศ / การนิเทศชั้นเรียน (Classroom Visit)
+           ==================================================================== -->
+      <section id="view-form2" class="tab-view">
+        <article class="paper-wrapper" id="printable-form2">
+          <!-- Official Document Header -->
+          <header class="official-header">
+            <!-- ตราโรงเรียนบ้านสันดาบ อยู่กึ่งกลาง บนคำว่า การนิเทศชั้นเรียน -->
+            <div class="school-logo-center">
+              <img src="ตราโรงเรียน.png" alt="ตราโรงเรียนบ้านสันดาบ" class="school-logo-img">
+            </div>
+            <h2>การนิเทศชั้นเรียน</h2>
+            <div class="round-tag-official" id="f2-print-round-tag">การประเมินครั้งที่ 1 (ตนเอง)</div>
+            <h3>โรงเรียนบ้านสันดาบ สำนักงานเขตพื้นที่การศึกษาประถมศึกษาสมุทรสาคร</h3>
+            <div class="sub-info">
+              <span>ปีการศึกษา <input type="text" id="f2-year" class="form-control" style="width: 90px; display:inline-block; text-align:center;" value="2569"><span class="print-value-display print-sub-val" id="f2-year-print-val">2569</span></span>
+              <span>ภาคเรียนที่ <input type="text" id="f2-term" class="form-control" style="width: 70px; display:inline-block; text-align:center;" value="1"><span class="print-value-display print-sub-val" id="f2-term-print-val">1</span></span>
+            </div>
+          </header>
+
+          <!-- Part 1: General Info -->
+          <div class="part-title">ข้อมูลทั่วไป</div>
+          <div class="info-rows-container">
+            <!-- แถวที่ 1: ชื่อผู้รับการนิเทศ และ ชั้นประจำห้องเรียน -->
+            <div class="info-row">
+              <div class="info-col" style="flex: 1.8; min-width: 280px;">
+                <label for="f2-teacher-select" class="info-label">
+                  ชื่อผู้รับการนิเทศ: <span class="required">*</span>
+                </label>
+                <div class="teacher-select-wrapper" style="flex: 1;">
+                  <select id="f2-teacher-select" class="form-control teacher-dropbox" onchange="onTeacherSelectedForm2(this.value)">
+                    <option value="">-- กรุณาเลือกครูผู้รับการนิเทศจากฐานข้อมูลกลาง --</option>
+                  </select>
+                  <input type="hidden" id="f2-teacher-name">
+                  <span class="print-value-display" id="f2-teacher-print-val"></span>
+                </div>
+              </div>
+
+              <div class="info-col" style="flex: 1.1; min-width: 180px;">
+                <label for="f2-grade" class="info-label">ชั้นประจำห้องเรียน:</label>
+                <div class="grade-select-wrapper" style="flex: 1;">
+                  <select id="f2-grade" class="form-control grade-dropbox" onchange="syncGradePrintValForm2(this.value)">
+                    <option value="">-- เลือกระดับชั้น --</option>
+                    <option value="อ.1">อนุบาล 1 (อ.1)</option>
+                    <option value="อ.2">อนุบาล 2 (อ.2)</option>
+                    <option value="อ.3">อนุบาล 3 (อ.3)</option>
+                    <option value="ป.1">ประถมศึกษาปีที่ 1 (ป.1)</option>
+                    <option value="ป.2">ประถมศึกษาปีที่ 2 (ป.2)</option>
+                    <option value="ป.3">ประถมศึกษาปีที่ 3 (ป.3)</option>
+                    <option value="ป.4">ประถมศึกษาปีที่ 4 (ป.4)</option>
+                    <option value="ป.5">ประถมศึกษาปีที่ 5 (ป.5)</option>
+                    <option value="ป.6">ประถมศึกษาปีที่ 6 (ป.6)</option>
+                  </select>
+                  <span class="print-value-display" id="f2-grade-print-val"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- แถวที่ 2: ห้องปฏิบัติการ / ห้องเรียน, วัน/เดือน/ปี ที่ประเมิน, เวลา -->
+            <div class="info-row">
+              <div class="info-col" style="flex: 1.5; min-width: 200px;">
+                <label for="f2-room" class="info-label">ห้องปฏิบัติการ / ห้องเรียน:</label>
+                <input type="text" id="f2-room" class="form-control" placeholder="เช่น ห้องเรียนประจำชั้น ป.4, ห้องวิทย์" style="flex: 1;">
+                <span class="print-value-display" id="f2-room-print-val"></span>
+              </div>
+
+              <div class="info-col" style="flex: 1.2; min-width: 170px;">
+                <label for="f2-date" class="info-label">วัน/เดือน/ปี ที่ประเมิน:</label>
+                <input type="date" id="f2-date" class="form-control" style="flex: 1;">
+                <span class="print-value-display" id="f2-date-print-val"></span>
+              </div>
+
+              <div class="info-col" style="flex: 0.8; min-width: 120px;">
+                <label for="f2-time" class="info-label">เวลา:</label>
+                <input type="time" id="f2-time" class="form-control" style="flex: 1;">
+                <span class="print-value-display" id="f2-time-print-val"></span>
+              </div>
+            </div>
+
+            <!-- แถวที่ 3: ชื่อผู้นิเทศ -->
+            <div class="info-row">
+              <div class="info-col full-width">
+                <label for="f2-supervisor" class="info-label">ชื่อผู้นิเทศ:</label>
+                <input type="text" id="f2-supervisor" class="form-control" placeholder="ระบุชื่อ-นามสกุล ผู้นิเทศ" style="flex: 1;">
+                <span class="print-value-display" id="f2-supervisor-print-val"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Evaluation Table (ปรับให้แคบลง และปรับตัวอักษรแต่ละข้อให้ใหญ่ขึ้น) -->
+          <div class="part-title">รายการประเมินการนิเทศชั้นเรียน</div>
+          <div class="eval-table-container">
+            <table class="eval-table" id="table-form2">
+              <thead>
+                <tr>
+                  <th rowspan="2" class="th-num">ที่</th>
+                  <th rowspan="2" class="th-item">รายการนิเทศเยี่ยมชั้นเรียน</th>
+                  <th colspan="5">ระดับปฏิบัติ</th>
+                </tr>
+                <tr>
+                  <th class="th-score">5<br><small style="font-weight: normal; font-size: 0.85rem;">(ดีมาก)</small></th>
+                  <th class="th-score">4<br><small style="font-weight: normal; font-size: 0.85rem;">(มาก)</small></th>
+                  <th class="th-score">3<br><small style="font-weight: normal; font-size: 0.85rem;">(พอใช้)</small></th>
+                  <th class="th-score">2<br><small style="font-weight: normal; font-size: 0.85rem;">(ปรับปรุง)</small></th>
+                  <th class="th-score">1<br><small style="font-weight: normal; font-size: 0.85rem;">(ไม่ปฏิบัติ)</small></th>
+                </tr>
+              </thead>
+              <tbody id="tbody-form2">
+                <!-- Rendered dynamically by JavaScript -->
+              </tbody>
+              <tfoot>
+                <!-- การรวมจำนวนข้อแต่ละระดับ และคะแนนรวมทั้งหมด อยู่ในส่วนตารางสุดท้ายเท่านั้น -->
+                <tr class="summary-row">
+                  <td colspan="2" style="text-align: right; padding-right: 1.25rem;">
+                    <strong>รวมจำนวนข้อในแต่ละระดับ:</strong>
+                  </td>
+                  <td class="score-cell" id="f2-count-5">0</td>
+                  <td class="score-cell" id="f2-count-4">0</td>
+                  <td class="score-cell" id="f2-count-3">0</td>
+                  <td class="score-cell" id="f2-count-2">0</td>
+                  <td class="score-cell" id="f2-count-1">0</td>
+                </tr>
+                <!-- Summary of Total and Average (แยกบรรทัด คะแนนรวม และ คะแนนเฉลี่ย) -->
+                <tr class="summary-row">
+                  <td colspan="2" style="text-align: right; padding-right: 1.25rem; vertical-align: middle;">
+                    <div style="font-weight: 800; line-height: 1.35;">คะแนนรวม:</div>
+                    <div style="font-weight: 800; line-height: 1.35;">คะแนนเฉลี่ย:</div>
+                  </td>
+                  <td colspan="5" style="text-align: center; font-size: 1.25rem; vertical-align: middle;" id="f2-score-avg-summary">
+                    <div style="font-weight: 800; line-height: 1.35;">0 คะแนน</div>
+                    <div style="font-weight: 800; line-height: 1.35;">ค่าเฉลี่ย 0.00</div>
+                  </td>
+                </tr>
+                <!-- Quality Level -->
+                <tr class="summary-row-grand">
+                  <td colspan="2" style="text-align: right; padding-right: 1.25rem;">
+                    ระดับคุณภาพ:
+                  </td>
+                  <td colspan="5" style="text-align: center; font-size: 1.35rem;" id="f2-grand-summary">
+                    <strong>รอการประเมิน</strong>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <!-- Part 3: Recommendations & Score Rubric (ตอนที่ 3 ข้อเสนอแนะ อยู่ใต้ตารางในหน้าเดียวกัน) -->
+          <div class="part-3-page-wrapper">
+            <div class="part-title">ตอนที่ 3 ข้อเสนอแนะ</div>
+            <div class="recommendations-box">
+              <textarea id="f2-recommendation" class="form-control frameless-textarea" rows="3" placeholder="ระบุข้อเสนอแนะเพิ่มเติมสำหรับการจัดสภาพแวดล้อมชั้นเรียน..."></textarea>
+            </div>
+
+            <!-- Rubric Guide Box (ซ่อนในระบบพิมพ์) -->
+            <div class="criteria-guide-box">
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+                <div>
+                  <h4>ระดับคะแนน:</h4>
+                  <p style="font-size: 1.1rem; line-height: 1.6;">
+                    5 หมายถึง ปฏิบัติระดับดีมาก<br>
+                    4 หมายถึง ปฏิบัติระดับมาก<br>
+                    3 หมายถึง ปฏิบัติระดับพอใช้<br>
+                    2 หมายถึง ปฏิบัติระดับปรับปรุง<br>
+                    1 หมายถึง ไม่ได้ปฏิบัติ
+                  </p>
+                </div>
+                <div>
+                  <h4>การแปลผลคะแนน / ระดับคุณภาพ:</h4>
+                  <p style="font-size: 1.1rem; line-height: 1.6;">
+                    4.26 - 5.00 หมายถึง <strong>ดีมาก</strong><br>
+                    3.51 - 4.25 หมายถึง <strong>ดี</strong><br>
+                    2.76 - 3.50 หมายถึง <strong>พอใช้</strong><br>
+                    1.00 - 2.75 หมายถึง <strong>ปรับปรุง</strong>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Signatures Grid พร้อมระบบแนบภาพลายเซ็นใส่เอกสาร -->
+            <div class="signature-grid">
+              <div class="signature-block">
+                <!-- ลายเซ็นผู้รับการนิเทศ -->
+                <div class="sig-line-row">
+                  <span class="sig-prefix">ลงชื่อ</span>
+                  <span class="signature-target-slot" id="f2-teacher-sig-target-slot" onclick="triggerSignatureInput('f2-teacher')" title="คลิกเพื่อแนบหรือเปลี่ยนรูปภาพลายเซ็น">
+                    <span class="sig-preview-box" id="f2-teacher-sig-preview" style="display:none;">
+                      <img id="f2-teacher-sig-img" class="signature-display-img" src="" alt="ภาพลายเซ็นผู้รับการนิเทศ">
+                      <button type="button" class="btn-remove-sig no-print" onclick="event.stopPropagation(); removeSignature('f2-teacher')" title="ลบลายเซ็นออก">✕ ลบ</button>
+                    </span>
+                    <span class="sig-dots-line" id="f2-teacher-sig-dots">................................................................</span>
+                  </span>
+                  <span class="sig-suffix">ผู้รับการนิเทศ</span>
+                </div>
+
+                <!-- ปุ่มแนบภาพลายเซ็น (ซ่อนเมื่อพิมพ์) -->
+                <div class="sig-upload-bar no-print" id="f2-teacher-sig-upload-box">
+                  <label class="btn-upload-signature" title="คลิกเพื่อเลือกไฟล์รูปภาพลายเซ็น (PNG/JPG)">
+                    ✍️ แนบภาพลายเซ็น
+                    <input type="file" id="f2-teacher-sig-file" accept="image/*" style="display:none;" onchange="handleSignatureUpload(event, 'f2-teacher')">
+                  </label>
+                </div>
+
+                <p class="sig-name-row">( <input type="text" id="f2-sig-teacher" class="form-control" style="width: 240px; display:inline-block; text-align:center;" placeholder="ชื่อ-นามสกุล ครูผู้รับการนิเทศ"><span class="print-value-display print-sig-name-val" id="f2-sig-teacher-print-val"></span> )</p>
+                <p class="sig-pos-row">ตำแหน่ง ครู โรงเรียนบ้านสันดาบ</p>
+              </div>
+
+              <div class="signature-block">
+                <!-- ลายเซ็นผู้นิเทศ -->
+                <div class="sig-line-row">
+                  <span class="sig-prefix">ลงชื่อ</span>
+                  <span class="signature-target-slot" id="f2-sup-sig-target-slot" onclick="triggerSignatureInput('f2-sup')" title="คลิกเพื่อแนบหรือเปลี่ยนรูปภาพลายเซ็น">
+                    <span class="sig-preview-box" id="f2-sup-sig-preview" style="display:none;">
+                      <img id="f2-sup-sig-img" class="signature-display-img" src="" alt="ภาพลายเซ็นผู้นิเทศ">
+                      <button type="button" class="btn-remove-sig no-print" onclick="event.stopPropagation(); removeSignature('f2-sup')" title="ลบลายเซ็นออก">✕ ลบ</button>
+                    </span>
+                    <span class="sig-dots-line" id="f2-sup-sig-dots">................................................................</span>
+                  </span>
+                  <span class="sig-suffix">ผู้นิเทศ</span>
+                </div>
+
+                <!-- ปุ่มแนบภาพลายเซ็น (ซ่อนเมื่อพิมพ์) -->
+                <div class="sig-upload-bar no-print" id="f2-sup-sig-upload-box">
+                  <label class="btn-upload-signature" title="คลิกเพื่อเลือกไฟล์รูปภาพลายเซ็น (PNG/JPG)">
+                    ✍️ แนบภาพลายเซ็น
+                    <input type="file" id="f2-sup-sig-file" accept="image/*" style="display:none;" onchange="handleSignatureUpload(event, 'f2-sup')">
+                  </label>
+                </div>
+
+                <p class="sig-name-row">( <input type="text" id="f2-sig-supervisor" class="form-control" style="width: 240px; display:inline-block; text-align:center;" value="นายกฤษฎา ผลพล"><span class="print-value-display print-sig-name-val" id="f2-sig-supervisor-print-val">นายกฤษฎา ผลพล</span> )</p>
+                <p class="sig-pos-row">ตำแหน่ง <input type="text" id="f2-sig-supervisor-pos" class="form-control" style="width: 240px; display:inline-block; text-align:center;" value="ผู้อำนวยการสถานศึกษา"><span class="print-value-display print-sig-pos-val" id="f2-sig-supervisor-pos-print-val">ผู้อำนวยการสถานศึกษา</span></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ช่องแถบสีชมพู/ม่วง สรุปคะแนน (ย้ายมาอยู่ใต้ ข้อความสุดท้าย ตำแหน่ง ตามคำสั่ง) -->
+          <div class="score-dashboard no-print" style="margin-top: 1.5rem;">
+            <div class="score-stat-group">
+              <div class="stat-item">
+                <span class="stat-label">คะแนนรวมที่ได้</span>
+                <div>
+                  <span class="stat-val" id="f2-dash-score">0</span>
+                  <span class="stat-max">/ 70 คะแนน</span>
+                </div>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">คะแนนเฉลี่ย</span>
+                <div>
+                  <span class="stat-val" id="f2-dash-avg">0.00</span>
+                  <span class="stat-max">/ 5.00</span>
+                </div>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">ประเมินแล้ว</span>
+                <div>
+                  <span class="stat-val" id="f2-dash-progress">0</span>
+                  <span class="stat-max">/ 14 ข้อ</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <span class="stat-label" style="display:block; margin-bottom: 0.35rem; opacity:0.95;">ระดับคุณภาพ</span>
+              <div class="stat-badge-quality" id="f2-dash-quality">ยังไม่ได้ประเมิน</div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ====================================================================
+           TAB 3: ประวัติการนิเทศชั้นเรียน (History Records)
+           ==================================================================== -->
+      <section id="view-history" class="tab-view">
+        <div class="records-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.75rem;">
+            <h2 style="font-size:1.55rem; color:var(--primary-darker); font-weight:800;">📋 ประวัติการนิเทศชั้นเรียน</h2>
+            <div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;">
+              <button type="button" class="btn btn-primary" style="font-size:1.05rem;" onclick="loadHistoryFromDatabase(true)" title="ดึงข้อมูลประวัติล่าสุดจากฐานข้อมูล Google Sheets และฐานข้อมูลระบบ">
+                🔄 ดึงข้อมูลจากฐานข้อมูล
+              </button>
+              <button type="button" class="btn btn-secondary" style="font-size:1.05rem;" onclick="exportRecordsToCSV()" title="ดาวน์โหลดประวัติเป็นไฟล์ CSV">
+                📥 ดาวน์โหลด CSV
+              </button>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 1rem;">
+            <input type="text" id="history-search" class="form-control" placeholder="🔍 ค้นหาชื่อครู, ครั้งที่, วิชา, ระดับชั้น..." style="max-width: 320px;" oninput="renderHistoryTable()">
+            <span style="color: var(--slate-600); font-weight:700; font-size: 1.15rem;" id="history-total-label">แสดง 0 รายการ</span>
+          </div>
+
+          <div style="overflow-x: auto;">
+            <!-- ตารางแสดงรายการประวัติการนิเทศชั้นเรียน ข้อมูลอยู่ในบรรทัดเดียวกันในแต่ละรายการ -->
+            <table class="records-table">
+              <thead>
+                <tr>
+                  <th style="width: 50px; text-align:center;">ลำดับ</th>
+                  <th style="width: 120px;">วัน/เวลา</th>
+                  <th>ผู้รับการประเมิน</th>
+                  <th>ประเภทแบบนิเทศ</th>
+                  <th style="width: 130px; text-align:center;">คะแนนรวม/เฉลี่ย</th>
+                  <th style="width: 110px; text-align:center;">ระดับคุณภาพ</th>
+                  <th style="width: 180px; text-align:center;">การจัดการ</th>
+                </tr>
+              </thead>
+              <tbody id="history-tbody">
+                <!-- Rendered dynamically by JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           TAB 4: ฐานข้อมูลครูและนักเรียน (Central DB Directory)
+           ตารางเต็มแถว แยกส่วนครูและนักเรียน พร้อมส่วนเพิ่มข้อมูลด้านบน
+           ==================================================================== -->
+      <section id="view-directory" class="tab-view">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem; flex-wrap:wrap; gap:0.75rem;">
+          <h2 style="font-size:1.6rem; color:var(--primary-darker); font-weight:800;">👥 ทะเบียนครูและนักเรียน โรงเรียนบ้านสันดาบ</h2>
+          <button type="button" class="btn btn-primary" onclick="loadCentralData(true)">
+            🔄 โหลดข้อมูลใหม่จาก Google Sheet
+          </button>
+        </div>
+
+        <!-- 1. ส่วนทะเบียนครูและบุคลากร (ตารางเต็มแถว แยกส่วน) -->
+        <div class="directory-section-card">
+          <div class="section-card-header">
+            <h3>👩‍🏫 ทะเบียนครูและบุคลากร (<span id="dir-teachers-count">0</span> คน)</h3>
+            <span style="color:var(--slate-600); font-size:1.05rem;">ดึงข้อมูลจากแท็บ <code>Teachers</code> ใน Google Sheet กลาง</span>
+          </div>
+
+          <!-- ส่วนเพิ่มข้อมูลครู ตามรายละเอียดในฐานข้อมูล -->
+          <div class="add-form-box">
+            <h4 style="font-size:1.2rem; color:var(--primary-darker); margin-bottom:0.6rem; font-weight:700;">➕ เพิ่มข้อมูลครูผู้สอน</h4>
+            <form id="form-add-teacher" onsubmit="handleAddTeacher(event)">
+              <div class="add-form-row">
+                <div class="form-group" style="flex: 2; min-width: 240px;">
+                  <label for="add-teacher-name">ชื่อ-นามสกุล: <span class="required">*</span></label>
+                  <input type="text" id="add-teacher-name" class="form-control" placeholder="เช่น นางสาวสมใจ ดีเลิศ" required>
+                </div>
+                <div class="form-group" style="flex: 1.5; min-width: 200px;">
+                  <label for="add-teacher-pos">ตำแหน่ง / ชั้นรับผิดชอบ: <span class="required">*</span></label>
+                  <select id="add-teacher-pos" class="form-control" required>
+                    <option value="">-- เลือกตำแหน่ง/ชั้น --</option>
+                    <option value="อ.1">ครูประจำชั้น อ.1</option>
+                    <option value="อ.2">ครูประจำชั้น อ.2</option>
+                    <option value="อ.3">ครูประจำชั้น อ.3</option>
+                    <option value="ป.1">ครูประจำชั้น ป.1</option>
+                    <option value="ป.2">ครูประจำชั้น ป.2</option>
+                    <option value="ป.3">ครูประจำชั้น ป.3</option>
+                    <option value="ป.4">ครูประจำชั้น ป.4</option>
+                    <option value="ป.5">ครูประจำชั้น ป.5</option>
+                    <option value="ป.6">ครูประจำชั้น ป.6</option>
+                    <option value="ครูผู้สอน">ครูผู้สอน</option>
+                    <option value="หัวหน้างานวิชาการ">หัวหน้างานวิชาการ</option>
+                    <option value="ผู้อำนวยการสถานศึกษา">ผู้อำนวยการสถานศึกษา</option>
+                  </select>
+                </div>
+                <div style="display:flex; align-items:flex-end;">
+                  <button type="submit" class="btn btn-success" style="height:42px;">
+                    ➕ บันทึกเพิ่มครู
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- ตารางครูแบบเต็มแถว 100% -->
+          <div style="overflow-x: auto; border: 1.5px solid var(--primary-200); border-radius: 10px;">
+            <table class="records-table" style="margin-top:0;">
+              <thead>
+                <tr>
+                  <th style="width: 60px; text-align: center;">ลำดับ</th>
+                  <th>ชื่อ-นามสกุล</th>
+                  <th>ตำแหน่ง / ชั้นรับผิดชอบ</th>
+                  <th style="width: 140px; text-align: center;">การจัดการ</th>
+                </tr>
+              </thead>
+              <tbody id="dir-teachers-tbody">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 2. ส่วนทะเบียนนักเรียน (ตารางเต็มแถว แยกส่วน) -->
+        <div class="directory-section-card" style="margin-top: 2rem;">
+          <div class="section-card-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+            <div>
+              <h3>🎓 ทะเบียนนักเรียน (<span id="dir-students-count">0</span> คน)</h3>
+              <span style="color:var(--slate-600); font-size:1.05rem;">ข้อมูลนักเรียนจากแท็บหลัก ใช้ในการอ้างอิงรายชื่อและจำนวนนักเรียน</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+              <label for="student-filter-grade" style="font-weight:700; font-size:1.1rem;">กรองระดับชั้น:</label>
+              <select id="student-filter-grade" class="form-control" style="width:140px; padding:0.35rem;" onchange="renderStudentsTable()">
+                <option value="">ทุกระดับชั้น</option>
+                <option value="อ.1">อนุบาล 1</option>
+                <option value="อ.2">อนุบาล 2</option>
+                <option value="อ.3">อนุบาล 3</option>
+                <option value="ป.1">ป.1</option>
+                <option value="ป.2">ป.2</option>
+                <option value="ป.3">ป.3</option>
+                <option value="ป.4">ป.4</option>
+                <option value="ป.5">ป.5</option>
+                <option value="ป.6">ป.6</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- ส่วนเพิ่มข้อมูลนักเรียน ตามรายละเอียดในฐานข้อมูล -->
+          <div class="add-form-box">
+            <h4 style="font-size:1.2rem; color:var(--primary-darker); margin-bottom:0.6rem; font-weight:700;">➕ เพิ่มข้อมูลนักเรียน</h4>
+            <form id="form-add-student" onsubmit="handleAddStudent(event)">
+              <div class="add-form-row">
+                <div class="form-group" style="flex: 1; min-width: 110px;">
+                  <label for="add-student-grade">ระดับชั้น: <span class="required">*</span></label>
+                  <select id="add-student-grade" class="form-control" required>
+                    <option value="">-- ชั้น --</option>
+                    <option value="อ.1">อ.1</option>
+                    <option value="อ.2">อ.2</option>
+                    <option value="อ.3">อ.3</option>
+                    <option value="ป.1">ป.1</option>
+                    <option value="ป.2">ป.2</option>
+                    <option value="ป.3">ป.3</option>
+                    <option value="ป.4">ป.4</option>
+                    <option value="ป.5">ป.5</option>
+                    <option value="ป.6">ป.6</option>
+                  </select>
+                </div>
+                <div class="form-group" style="flex: 1; min-width: 110px;">
+                  <label for="add-student-code">รหัสประจำตัว: <span class="required">*</span></label>
+                  <input type="text" id="add-student-code" class="form-control" placeholder="เช่น 1450" required>
+                </div>
+                <div class="form-group" style="flex: 2; min-width: 220px;">
+                  <label for="add-student-name">ชื่อ-นามสกุล: <span class="required">*</span></label>
+                  <input type="text" id="add-student-name" class="form-control" placeholder="เช่น เด็กชายศุภชัย สดใส" required>
+                </div>
+                <div class="form-group" style="flex: 1; min-width: 100px;">
+                  <label for="add-student-gender">เพศ:</label>
+                  <select id="add-student-gender" class="form-control">
+                    <option value="ชาย">ชาย</option>
+                    <option value="หญิง">หญิง</option>
+                  </select>
+                </div>
+                <div class="form-group" style="flex: 1; min-width: 110px;">
+                  <label for="add-student-status">สถานะ:</label>
+                  <select id="add-student-status" class="form-control">
+                    <option value="เรียนอยู่">เรียนอยู่</option>
+                    <option value="จบการศึกษา">จบการศึกษา</option>
+                    <option value="ย้าย">ย้าย</option>
+                  </select>
+                </div>
+                <div style="display:flex; align-items:flex-end;">
+                  <button type="submit" class="btn btn-success" style="height:42px;">
+                    ➕ บันทึกเพิ่มนักเรียน
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- ตารางนักเรียนแบบเต็มแถว 100% -->
+          <div style="overflow-x: auto; border: 1.5px solid var(--primary-200); border-radius: 10px;">
+            <table class="records-table" style="margin-top:0;">
+              <thead>
+                <tr>
+                  <th style="width: 60px; text-align: center;">ลำดับ</th>
+                  <th style="width: 80px; text-align: center;">ชั้น</th>
+                  <th style="width: 90px; text-align: center;">รหัส</th>
+                  <th>ชื่อ-นามสกุล นักเรียน</th>
+                  <th style="width: 70px; text-align: center;">เพศ</th>
+                  <th style="width: 90px; text-align: center;">สถานะ</th>
+                  <th style="width: 90px; text-align: center;">การจัดการ</th>
+                </tr>
+              </thead>
+              <tbody id="dir-students-tbody">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           TAB 5: การตั้งค่าเชื่อมต่อ Google Sheets & Google Drive (Settings)
+           ==================================================================== -->
+      <section id="view-settings" class="tab-view" style="display:none !important;">
+        <div class="records-card" style="margin-bottom: 1.5rem;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem; flex-wrap:wrap; gap:0.75rem;">
+            <div>
+              <h2 style="font-size:1.6rem; color:var(--primary-darker); font-weight:800; margin-bottom:0.25rem;">
+                ⚙️ การตั้งค่าเชื่อมต่อ Google Sheets & Google Drive
+              </h2>
+              <p style="color:var(--slate-600); font-size:1.05rem; margin:0;">
+                กำหนดค่า Google Apps Script Web App เพื่อบันทึกผลการนิเทศและสร้างเอกสารลง Google Drive อัตโนมัติ
+              </p>
+            </div>
+            <div id="settings-status-indicator" class="connection-status-pill disconnected">
+              <span class="status-pulse-dot"></span>
+              <span id="settings-status-text">ยังไม่ได้เชื่อมต่อ Web App</span>
+            </div>
+          </div>
+
+          <!-- กล่องใส่ Web App URL -->
+          <div class="settings-box" style="background:#fdf2f8; border:1.5px solid var(--primary-200); border-radius:14px; padding:1.25rem; margin-bottom:1.5rem;">
+            <label for="appscript-url-input" style="font-weight:700; font-size:1.15rem; color:var(--slate-800); display:block; margin-bottom:0.5rem;">
+              🔗 Google Apps Script Web App URL:
+            </label>
+            <div style="display:flex; gap:0.75rem; flex-wrap:wrap; margin-bottom:0.75rem;">
+              <input type="url" id="appscript-url-input" class="form-control" style="flex:1; min-width:280px; font-family:monospace; font-size:1rem;" value="https://script.google.com/macros/s/AKfycbwh3nEjhvnFeHqLPznuO2BAUopOU4O1HgGYDxFEbe9jBa7ZuT2FOOGw-V9S1K-trM8o/exec" placeholder="https://script.google.com/macros/s/AKfycb.../exec">
+              <button type="button" class="btn btn-success" onclick="saveAppSettings()" style="white-space:nowrap;">
+                💾 บันทึก URL
+              </button>
+              <button type="button" class="btn btn-primary" onclick="testGoogleWebAppConnection()" style="white-space:nowrap;">
+                ⚡ ทดสอบการเชื่อมต่อ
+              </button>
+              <button type="button" class="btn btn-outline-secondary" onclick="clearAppSettings()" style="white-space:nowrap;">
+                ล้างค่า
+              </button>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; font-size:0.95rem; color:var(--slate-600);">
+              <span>💡 URL ต้องขึ้นต้นด้วย <code>https://script.google.com/macros/s/</code> และลงท้ายด้วย <code>/exec</code></span>
+              <span id="settings-last-tested" style="font-style:italic; font-weight:600;">ยังไม่ได้ทดสอบ</span>
+            </div>
+          </div>
+
+          <!-- กล่องปุ่มด่วนสำหรับซิงค์ข้อมูลย้อนหลัง -->
+          <div class="sync-actions-card" style="background:linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%); border:1.5px solid var(--primary-300); border-radius:14px; padding:1.25rem; margin-bottom:1.5rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+              <div style="flex:1; min-width:260px;">
+                <h4 style="font-size:1.25rem; color:var(--primary-darker); font-weight:800; margin-bottom:0.35rem;">
+                  📤 ซิงค์ข้อมูลที่เคยประเมินแล้วขึ้น Google Sheet ทันที
+                </h4>
+                <p style="margin:0; color:var(--slate-700); font-size:1.05rem;">
+                  ระบบตรวจพบประวัติในระบบ <strong id="settings-sync-count" style="color:var(--primary-darker); font-size:1.2rem;">0</strong> รายการ หากเพิ่งเชื่อมต่อ Web App สามารถกดปุ่มนี้เพื่อส่งข้อมูลทั้งหมดขึ้น Google Sheet ได้ทันที
+                </p>
+                <div id="settings-sync-progress" style="margin-top:0.5rem; font-weight:700; color:var(--primary-darker); display:none;"></div>
+              </div>
+              <button type="button" class="btn btn-success" id="btn-sync-all-to-sheet" onclick="syncAllHistoryToGoogleSheet()" style="padding:0.75rem 1.5rem; font-size:1.1rem; box-shadow:0 4px 12px rgba(16,185,129,0.3); font-weight:700;">
+                🚀 ซิงค์ข้อมูลทั้งหมดขึ้น Google Sheet
+              </button>
+            </div>
+          </div>
+
+          <!-- แหล่งข้อมูล Google ปลายทาง -->
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1rem; margin-bottom:1.5rem;">
+            <div style="background:#fff; border:1.5px solid var(--primary-200); border-radius:10px; padding:1rem;">
+              <div style="font-weight:700; color:var(--primary-darker); margin-bottom:0.35rem; font-size:1.1rem;">📊 ฐานข้อมูลระบบนิเทศ (Google Sheet)</div>
+              <div style="font-size:0.95rem; color:var(--slate-600); word-break:break-all; margin-bottom:0.6rem;">ID: <code>1qhnHQLdlMFcbR6EMeDqkP2usOqA_yjfqKYgPFg5BK4E</code></div>
+              <a href="https://docs.google.com/spreadsheets/d/1qhnHQLdlMFcbR6EMeDqkP2usOqA_yjfqKYgPFg5BK4E/edit" target="_blank" class="btn btn-outline-secondary btn-sm" style="display:inline-block; text-decoration:none; font-weight:600;">
+                🔗 เปิด Google Sheet ในหน้าต่างใหม่
+              </a>
+            </div>
+            <div style="background:#fff; border:1.5px solid var(--primary-200); border-radius:10px; padding:1rem;">
+              <div style="font-weight:700; color:var(--primary-darker); margin-bottom:0.35rem; font-size:1.1rem;">📁 โฟลเดอร์เก็บเอกสาร (Google Drive)</div>
+              <div style="font-size:0.95rem; color:var(--slate-600); word-break:break-all; margin-bottom:0.6rem;">ID: <code>1BF30rLUzeTA4CYNkbZq8DnyuWfiwumCH</code></div>
+              <a href="https://drive.google.com/drive/folders/1BF30rLUzeTA4CYNkbZq8DnyuWfiwumCH" target="_blank" class="btn btn-outline-secondary btn-sm" style="display:inline-block; text-decoration:none; font-weight:600;">
+                🔗 เปิด Google Drive ในหน้าต่างใหม่
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- กล่องคำแนะนำขั้นตอนการติดตั้ง Code.gs ใน Apps Script -->
+        <div class="records-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.5rem;">
+            <h3 style="font-size:1.35rem; color:var(--primary-darker); font-weight:800; margin:0;">
+              📖 วิธีการติดตั้ง Google Apps Script (ทำเพียงครั้งเดียว 2 นาที)
+            </h3>
+            <button type="button" class="btn btn-primary" onclick="copyCodeGsToClipboard()" style="font-size:1.05rem; font-weight:700;">
+              📋 คลิกคัดลอกโค้ด Code.gs ทั้งหมด
+            </button>
+          </div>
+          <div class="guide-steps" style="display:flex; flex-direction:column; gap:0.85rem; font-size:1.05rem; line-height:1.6; color:var(--slate-700);">
+            <div style="display:flex; gap:0.75rem;">
+              <div style="min-width:32px; height:32px; border-radius:50%; background:var(--primary); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:bold;">1</div>
+              <div>เปิดไฟล์ Google Sheet <strong>ระบบนิเทศชั้นเรียน</strong> <a href="https://docs.google.com/spreadsheets/d/1qhnHQLdlMFcbR6EMeDqkP2usOqA_yjfqKYgPFg5BK4E/edit" target="_blank" style="color:var(--primary); font-weight:700;">คลิกที่นี่เพื่อเปิด Google Sheet</a></div>
+            </div>
+            <div style="display:flex; gap:0.75rem;">
+              <div style="min-width:32px; height:32px; border-radius:50%; background:var(--primary); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:bold;">2</div>
+              <div>ไปที่เมนูด้านบน คลิก <strong>ส่วนขยาย (Extensions)</strong> &gt; เลือก <strong>Apps Script</strong></div>
+            </div>
+            <div style="display:flex; gap:0.75rem;">
+              <div style="min-width:32px; height:32px; border-radius:50%; background:var(--primary); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:bold;">3</div>
+              <div>ลบโค้ดเดิมในหน้า Apps Script ออกทั้งหมด แล้วกดปุ่ม <strong>"📋 คลิกคัดลอกโค้ด Code.gs ทั้งหมด"</strong> ด้านบน นำมาวาง (Ctrl + V) ในช่องโค้ด แล้วกดไอคอนบันทึก 💾</div>
+            </div>
+            <div style="display:flex; gap:0.75rem;">
+              <div style="min-width:32px; height:32px; border-radius:50%; background:var(--primary); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:bold;">4</div>
+              <div>กดปุ่มสีน้ำเงิน <strong>การทำให้ใช้งานได้ (Deploy)</strong> ที่มุมขวาบน &gt; เลือก <strong>การทำให้ใช้งานได้รายการใหม่ (New deployment)</strong></div>
+            </div>
+            <div style="display:flex; gap:0.75rem;">
+              <div style="min-width:32px; height:32px; border-radius:50%; background:var(--primary); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:bold;">5</div>
+              <div>คลิกที่รูปฟันเฟือง ⚙️ ด้านซ้าย เลือก <strong>เว็บแอป (Web app)</strong> และตั้งค่าดังนี้:
+                <ul style="margin:0.35rem 0 0 1.25rem; list-style-type:disc;">
+                  <li><strong>คำอธิบาย (Description):</strong> ระบบนิเทศภายใน</li>
+                  <li><strong>ดำเนินการในฐานะ (Execute as):</strong> <u>ฉัน (Me / your-email@gmail.com)</u></li>
+                  <li><strong>ผู้ที่มีสิทธิ์เข้าถึง (Who has access):</strong> <u style="color:#e11d48; font-weight:bold;">ทุกคน (Anyone)</u> <em>(สำคัญมาก! หากไม่เลือก Anyone เว็บจะไม่สามารถส่งข้อมูลเข้า Google Sheet ได้)</em></li>
+                </ul>
+              </div>
+            </div>
+            <div style="display:flex; gap:0.75rem;">
+              <div style="min-width:32px; height:32px; border-radius:50%; background:var(--primary); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:bold;">6</div>
+              <div>กดปุ่ม <strong>ทำให้ใช้งานได้ (Deploy)</strong> &gt; กด <strong>ให้สิทธิ์การเข้าถึง (Authorize access)</strong> &gt; เลือกบัญชี Google ของท่าน &gt; กด Advanced &gt; Go to ... (unsafe) &gt; กด <strong>Allow (อนุญาต)</strong></div>
+            </div>
+            <div style="display:flex; gap:0.75rem;">
+              <div style="min-width:32px; height:32px; border-radius:50%; background:var(--primary); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:bold;">7</div>
+              <div>คัดลอก <strong>URL เว็บแอป (Web app URL)</strong> ที่ลงท้ายด้วย <code>/exec</code> นำมาวางในช่อง <strong>Google Apps Script Web App URL</strong> ด้านบน แล้วกด <strong>💾 บันทึก URL</strong></div>
+            </div>
+            <div style="display:flex; gap:0.75rem;">
+              <div style="min-width:32px; height:32px; border-radius:50%; background:var(--primary); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:bold;">8</div>
+              <div>กดปุ่ม <strong>⚡ ทดสอบการเชื่อมต่อ</strong> และกด <strong>🚀 ซิงค์ข้อมูลทั้งหมดขึ้น Google Sheet ทันที</strong> ข้อมูลผลการประเมินทั้งหมดจะเข้าไปสร้างตารางใน Google Sheet โดยสมบูรณ์ทันที! 🎉</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Modal กล่องข้อความแจ้งเตือนกลางจอเมื่อกดบันทึกข้อมูล -->
+  <div id="save-success-modal-overlay" class="modal-overlay no-print" style="display:none;" onclick="handleModalOverlayClick(event)">
+    <div class="modal-dialog-center">
+      <div class="modal-dialog-header">
+        <div class="modal-icon-badge" id="modal-status-icon">✅</div>
+        <h3 id="modal-success-title" style="color:var(--emerald-600); font-size:1.65rem; font-weight:800; margin:0.35rem 0;">บันทึกข้อมูลเรียบร้อย</h3>
+        <p id="modal-success-subtitle" style="font-size:1.05rem; color:var(--slate-600); margin:0;">ผลการประเมินได้รับการบันทึกลงฐานข้อมูลเรียบร้อยแล้ว</p>
+      </div>
+      <div class="modal-dialog-body" id="modal-dialog-body-content">
+        <!-- รายละเอียดผลการประเมิน -->
+        <div class="modal-detail-card" id="modal-detail-card">
+          <div class="modal-detail-row">
+            <span class="modal-detail-label">รอบการประเมิน:</span>
+            <span class="modal-detail-value" id="modal-record-round">-</span>
+          </div>
+          <div class="modal-detail-row">
+            <span class="modal-detail-label">แบบประเมิน:</span>
+            <span class="modal-detail-value" id="modal-record-type">-</span>
+          </div>
+          <div class="modal-detail-row">
+            <span class="modal-detail-label">ครูผู้รับการนิเทศ:</span>
+            <span class="modal-detail-value" id="modal-record-teacher">-</span>
+          </div>
+          <div class="modal-detail-row">
+            <span class="modal-detail-label">ผลการประเมิน:</span>
+            <span class="modal-detail-value" id="modal-record-score">-</span>
+          </div>
+          <div class="modal-detail-row" id="modal-sheet-status-row">
+            <span class="modal-detail-label">สถานะการบันทึก:</span>
+            <span class="modal-detail-value" id="modal-record-sheet-status" style="font-weight:700; color:#059669;">✅ บันทึกข้อมูลเรียบร้อย</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-dialog-footer" style="display:flex; justify-content:center; padding:1.25rem; border-top:1px solid #f1f5f9;">
+        <button type="button" class="btn btn-success" id="btn-modal-next-action" onclick="executeModalNextAction()" style="padding:0.75rem 3rem; font-size:1.15rem; font-weight:800; border-radius:10px; box-shadow:0 4px 12px rgba(16,185,129,0.35);">
+          ตกลง
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>
